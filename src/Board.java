@@ -9,11 +9,16 @@ public class Board {
 	private final int COLS = 10;
 	private final int NUM_SNAKES = 8;
 	private final int NUM_LADDERS = 8;
+	private final int NUM_POWERUPS = 5;
+	private final int NUM_DISADVS = 5;
+	
 
 	//Board variables
 	private int[][] gameBoard;
 	private int[][] snakes;
 	private int[][] ladders;
+	private int[] powerups;
+	private int[] disadvs;
 
 	//Map of player positions.
 	//Key = player, Value = player position
@@ -39,9 +44,11 @@ public class Board {
 			}
 		}
 
-		//Set the snakes and ladders
+		//Set the snakes, ladders, powerups, and disadvantages
 		setSnakes();
 		setLadders();
+		setPowerups();
+		setDisadvs();
 
 	}
 
@@ -90,6 +97,15 @@ public class Board {
 					System.out.println("Yay! " + player + " takes ladder from " + ladders[idx][0] + " to " + ladders[idx][1]);
 					
 					return false;
+				}
+			}
+			
+			//Check if the new position contains a powerup or a disadvantage
+			for (int idx = 0; idx < NUM_POWERUPS; idx++){
+				if (powerups[idx] == position){
+					player.earnPowerup();
+				} else if (disadvs[idx] == position){
+					player.earnDisadv();
 				}
 			}
 
@@ -147,6 +163,32 @@ public class Board {
 		ladders[6][1] = 81;
 		ladders[7][0] = 71;
 		ladders[7][1] = 91;
+	}
+	
+	/**
+	 * Sets the powerups
+	 */
+	private void setPowerups(){
+		powerups = new int[NUM_POWERUPS];
+		
+		powerups[0] = 2;
+		powerups[1] = 21;
+		powerups[2] = 50;
+		powerups[3] = 69;
+		powerups[4] = 88;
+	}
+	
+	/**
+	 * Sets the disadvantages
+	 */
+	private void setDisadvs(){
+		disadvs = new int[NUM_DISADVS];
+		
+		disadvs[0] = 6;
+		disadvs[1] = 25;
+		disadvs[2] = 44;
+		disadvs[3] = 76;
+		disadvs[4] = 97;
 	}
 
 	/**
